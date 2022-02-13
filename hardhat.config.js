@@ -33,7 +33,6 @@ module.exports = {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
   gasReporter: {
-    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
     currency: "USD",
     enabled: process.env.REPORT_GAS === "true",
     excludeContracts: ["contracts/mocks/", "contracts/libraries/"],
@@ -85,10 +84,6 @@ module.exports = {
       gasPrice: 5000000000,
       gasMultiplier: 2,
     },
-  },
-  tenderly: {
-    project: process.env.TENDERLY_PROJECT,
-    username: process.env.TENDERLY_USERNAME,
   },
   watcher: {
     compile: {

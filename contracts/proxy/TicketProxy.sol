@@ -7,11 +7,8 @@ contract TicketProxy {
     address private immutable beacon;
 
     constructor(address _beacon) {
+        require(_beacon != address(0), "TicketProxy: ZERO_ADDRESS");
         beacon = _beacon;
-    }
-
-    function _implementation() internal view virtual returns (address) {
-        return IBeacon(beacon).implementation();
     }
 
     fallback() external payable {
@@ -30,5 +27,9 @@ contract TicketProxy {
                 return(0, returndatasize())
             }
         }
+    }
+
+    function _implementation() internal view virtual returns (address) {
+        return IBeacon(beacon).implementation();
     }
 }

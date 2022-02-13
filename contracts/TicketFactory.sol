@@ -12,12 +12,12 @@ contract TicketFactory is ITicketFactory {
     event TicketCreated(address ticketAddress, address ticketCreator);
 
     constructor(address _beacon) {
+        require(_beacon != address(0), "TicketFactory: ZERO_BEACON_ADDRESS");
         beacon = _beacon;
     }
 
     /**
      * @notice invoked when a new ticket is created.
-     * @param _salt random and unique initial seed
      */
     function createTicket(
         uint256 startBlock,
@@ -30,6 +30,8 @@ contract TicketFactory is ITicketFactory {
     ) external override {
         bytes32 salt = keccak256(abi.encode(msg.sender, _salt));
         address addr = _create(salt);
+
+        _validateParams(startBlock, endBlock, ticketPrice);
 
         _initTicket(
             addr,
@@ -44,6 +46,16 @@ contract TicketFactory is ITicketFactory {
         ticketRegistry[addr] = true;
 
         emit TicketCreated(addr, msg.sender);
+    }
+
+    function _validateParams(
+        uint256 startBlock,
+        uint256 endBlock,
+        uint256 ticketPrice
+    ) internal view {
+        require(startBlock > block.number, "TicketFactory: INVAID_START_BLOCK");
+        require(endBlock > block.number, "TicketFactory: INVAID_END_BLOCK");
+        require(ticketPrice > 0, "TicketFactory: INVAID_TICKET_PRICE");
     }
 
     function _create(bytes32 _salt) internal returns (address) {

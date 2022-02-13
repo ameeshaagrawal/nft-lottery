@@ -11,7 +11,8 @@
     "compile": "npx hardhat compile",
     "clean": "npx hardhat clean",
     "node": "npx hardhat node",
-    "help": "npx hardhat help"
+    "help": "npx hardhat help",
+    "flatten": "npx hardhat flatten"
   },
   "keywords": [
     "NFT",

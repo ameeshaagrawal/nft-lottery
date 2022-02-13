@@ -12,7 +12,8 @@
     "clean": "npx hardhat clean",
     "node": "npx hardhat node",
     "help": "npx hardhat help",
-    "flatten": "npx hardhat flatten"
+    "flatten": "npx hardhat flatten",
+    "test:coverage": "npx hardhat coverage"
   },
   "keywords": [
     "NFT",
